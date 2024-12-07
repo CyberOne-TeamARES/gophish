@@ -19,10 +19,13 @@ This fork of Gophish has the following OPSEC changes applied:
   - `models/maillog_test.go`
   - `models/email_request.go`
 - All references to the `X-Gophish-Signature` header have been replaced with `X-Signature` in the following file(s):
-  - webhook/webhook.go
+  - `webhook/webhook.go`
 - The `ServerName` constant has been renamed to "IGNORE" in `config/config.go`
 - The `RecipientParameter` constant has been renamed from "rid" to "key" in `models/campaign.go`
-- The `controllers/phish.go` file has had changes made to the headers the web server will return (based on Nichola Anastasi's guide), Michael Eder's HTTP/S error handling changes applied, and the file `404.html` has been added to the `templates/` directory
+- The `controllers/phish.go` file has had changes made:
+  - Michael Eder's `customError` function to overwrite Go's `net.http` Error function, plus more HTTP response headers (based on [Nichola Anastasi's guide](https://www.sprocketsecurity.com/resources/never-had-a-bad-day-phishing-how-to-set-up-gophish-to-evade-security-controls))
+  - Michael Eder's `customNotFound` function to serve a less-fingerprintable HTTP 404 response
+- An example HTTP 404 response file has been added at `templates/404.html` to align with the changes in `controllers/phish.go`
 
 Special thanks to Nicholas Anastasi and Michael Eder for their extremely helpful guides and code changes!
 
