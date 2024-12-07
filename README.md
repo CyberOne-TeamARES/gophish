@@ -9,6 +9,23 @@ Gophish: Open-Source Phishing Toolkit
 
 [Gophish](https://getgophish.com) is an open-source phishing toolkit designed for businesses and penetration testers. It provides the ability to quickly and easily setup and execute phishing engagements and security awareness training.
 
+### SPECIAL NOTE ON THIS FORK
+
+This fork of Gophish has the following OPSEC changes applied:
+
+- All references to the `X-Gophish-Contact` header have been replaced with `X-Contact` in the following file(s):
+  - `models/email_request_test.go`
+  - `models/maillog.go`
+  - `models/maillog_test.go`
+  - `models/email_request.go`
+- All references to the `X-Gophish-Signature` header have been replaced with `X-Signature` in the following file(s):
+  - webhook/webhook.go
+- The `ServerName` constant has been renamed to "IGNORE" in `config/config.go`
+- The `RecipientParameter` constant has been renamed from "rid" to "key" in `models/campaign.go`
+- The `controllers/phish.go` file has had changes made to the headers the web server will return (based on Nichola Anastasi's guide), Michael Eder's HTTP/S error handling changes applied, and the file `404.html` has been added to the `templates/` directory
+
+Special thanks to Nicholas Anastasi and Michael Eder for their extremely helpful guides and code changes!
+
 ### Install
 
 Installation of Gophish is dead-simple - just download and extract the zip containing the [release for your system](https://github.com/gophish/gophish/releases/), and run the binary. Gophish has binary releases for Windows, Mac, and Linux platforms.
